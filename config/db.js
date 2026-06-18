@@ -43,7 +43,8 @@ const connectDB = async () => {
   
   try {
     const conn = await mongoose.connect(mongoURI, {
-      serverSelectionTimeoutMS: 5000 // Timeout after 5s
+      serverSelectionTimeoutMS: 15000, // Increased timeout for Vercel cold starts
+      family: 4 // Force IPv4 to fix Node 18+ DNS resolution issues on Vercel
     });
     await seedAdminUsers();
   } catch (error) {
