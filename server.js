@@ -13,8 +13,10 @@ const app = express();
 // Connect to MongoDB
 connectDB();
 
-// CORS setups - allow any client for easy deployment testing (Render/Vercel)
-app.use(cors());
+// CORS setups - allow frontend URL or any client for easy deployment testing
+app.use(cors({
+  origin: process.env.FRONTEND_URL || '*'
+}));
 
 // Body parser middleware
 app.use(express.json({ limit: '50mb' })); // Support base64 image uploads up to 50MB
