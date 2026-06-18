@@ -1,3 +1,9 @@
+const dns = require('dns');
+// Force Node.js to prefer IPv4 DNS resolution first to fix Vercel querySrv ECONNREFUSED error
+if (typeof dns.setDefaultResultOrder === 'function') {
+  dns.setDefaultResultOrder('ipv4first');
+}
+
 const express = require('express');
 const cors = require('cors');
 require('dotenv').config();
