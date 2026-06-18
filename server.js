@@ -1,5 +1,12 @@
 const dns = require('dns');
-// Force Node.js to prefer IPv4 DNS resolution first to fix Vercel querySrv ECONNREFUSED error
+// Set public DNS servers to resolve MongoDB SRV records (fixes querySrv ECONNREFUSED)
+try {
+  dns.setServers(['8.8.8.8', '1.1.1.1']);
+} catch (err) {
+  console.warn('Warning: Could not set custom DNS servers:', err.message);
+}
+
+// Force Node.js to prefer IPv4 DNS resolution first
 if (typeof dns.setDefaultResultOrder === 'function') {
   dns.setDefaultResultOrder('ipv4first');
 }
